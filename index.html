@@ -43,6 +43,7 @@
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     button.cta:hover{transform:none; box-shadow:none;}
+    .banner-track{animation:none;}
   }
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
     outline:2px solid var(--amber); outline-offset:3px;
@@ -321,6 +322,27 @@
     .n8n-title{font-size:10.5px;}
     .n8n-status{font-size:10px;}
   }
+
+  /* Banner marquee */
+  .banner-marquee{
+    border-top:1px solid rgba(127,179,211,0.35);
+    border-bottom:1px solid rgba(127,179,211,0.35);
+    overflow:hidden;
+    background:rgba(10,27,43,0.4);
+  }
+  .banner-track{
+    display:flex;
+    width:max-content;
+    animation:marquee-scroll 26s linear infinite;
+  }
+  .banner-track img{
+    height:110px;
+    display:block;
+  }
+  @keyframes marquee-scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
 </style>
 </head>
 <body>
@@ -436,6 +458,13 @@
       </div>
     </div>
   </header>
+
+  <div class="banner-marquee" aria-hidden="true">
+    <div class="banner-track">
+      <img src="assets/flyer-banner.png" alt="">
+      <img src="assets/flyer-banner.png" alt="">
+    </div>
+  </div>
 
   <section id="servicios">
     <div class="section-head">
@@ -583,7 +612,6 @@
               <option value="otro">Otro</option>
             </select>
           </div>
-          </div>
           <div class="field">
             <label for="modalidad">Modalidad</label>
             <select id="modalidad" name="modalidad" required>
@@ -617,7 +645,7 @@
   <footer>
     <div class="foot-row">
       <div>
-        <a href="mailto:germanmorvillo@gmail.com">germanmorvillo@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#1c7b796e717d7271736e6a757070735c7b717d7570327f7371"><span class="__cf_email__" data-cfemail="610604130c000f0c0e1317080d0d0e21060c00080d4f020e0c">[email&#160;protected]</span></a>
         <a href="https://wa.me/5491165327238" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://www.linkedin.com/in/german-pablo-morvillo" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/sher414/Process" target="_blank" rel="noopener">GitHub</a>
@@ -631,7 +659,7 @@
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const WEBHOOK_URL = "https://n8n.shermanautomations.com/webhook/leads";
 
   const form = document.getElementById('lead-form');
