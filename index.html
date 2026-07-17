@@ -56,15 +56,24 @@
 <!-- Seguridad: Content-Security-Policy -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  img-src 'self' https://raw.githubusercontent.com data:;
+  img-src 'self' https://raw.githubusercontent.com data: https://www.google-analytics.com https://www.googletagmanager.com;
   font-src 'self' https://fonts.gstatic.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  script-src 'self' 'unsafe-inline';
-  connect-src 'self' https://n8n.shermanautomations.com;
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
+  connect-src 'self' https://n8n.shermanautomations.com https://www.google-analytics.com https://region1.google-analytics.com;
   frame-ancestors 'self';
   base-uri 'self';
   form-action 'self' https://n8n.shermanautomations.com;
 ">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GZE1NYTXYV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GZE1NYTXYV');
+</script>
 <!-- Seguridad: no permitir que el navegador reinterprete el tipo de archivo -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <!-- Seguridad: limita qué información se filtra al hacer clic en links salientes -->
