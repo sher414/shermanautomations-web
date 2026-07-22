@@ -61,6 +61,7 @@
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
   connect-src 'self' https://n8n.shermanautomations.com https://www.google-analytics.com https://region1.google-analytics.com;
+  frame-src https://trello.com;
   frame-ancestors 'self';
   base-uri 'self';
   form-action 'self' https://n8n.shermanautomations.com;
@@ -380,6 +381,55 @@
     .n8n-status{font-size:10px;}
   }
 
+  /* Casos en producción */
+  .case-card{
+    border:1px solid rgba(127,179,211,0.35);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:44px;
+    padding:40px; align-items:center;
+  }
+  @media (max-width:860px){ .case-card{grid-template-columns:1fr;} }
+  .case-hook{font-family:var(--mono); font-size:13px; color:var(--cyan); margin-bottom:10px; letter-spacing:0.03em;}
+  .case-card h3{font-family:var(--mono); font-size:24px; color:var(--paper); font-weight:600; margin-bottom:14px;}
+  .case-card p.desc{color:var(--paper-dim); font-size:15.5px; margin-bottom:26px; max-width:520px;}
+  .case-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  a.cta-ghost{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    border:1px solid var(--cyan); color:var(--cyan); background:transparent;
+    padding:13px 22px; text-decoration:none; cursor:pointer;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  a.cta-ghost:hover, button.cta-ghost:hover{background:var(--cyan); color:var(--navy-deep);}
+  button.cta-ghost{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    border:1px solid var(--cyan); color:var(--cyan); background:transparent;
+    padding:13px 22px; cursor:pointer;
+  }
+  .case-visual{
+    border:1px solid rgba(127,179,211,0.35); overflow:hidden; cursor:pointer; position:relative;
+  }
+  .case-visual img{width:100%; display:block;}
+  .case-visual .overlay{
+    position:absolute; inset:0; background:rgba(10,27,43,0.6);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:13px; color:var(--paper); opacity:0;
+    transition:opacity 0.15s ease;
+  }
+  .case-visual:hover .overlay{opacity:1;}
+
+  /* Modal demo en vivo */
+  .modal-backdrop{
+    display:none; position:fixed; inset:0; background:rgba(5,14,24,0.85);
+    z-index:999; align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal-backdrop .n8n-window{width:100%; max-width:960px;}
+  .modal-backdrop iframe{width:100%; height:600px; border:none; display:block;}
+  .modal-close{
+    background:none; border:none; color:var(--steel); font-family:var(--mono);
+    font-size:16px; cursor:pointer; margin-left:auto;
+  }
+  .modal-close:hover{color:var(--amber);}
+
   /* Banner marquee */
   .banner-marquee{
     border-top:1px solid rgba(127,179,211,0.35);
@@ -488,6 +538,7 @@
       <div class="brand">SHERMAN<span>·</span>AUTOMATIONS</div>
       <div>
         <a href="#servicios">Servicios</a>
+        <a href="#casos">Casos</a>
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#contacto">Contacto</a>
       </div>
@@ -606,6 +657,48 @@
       </div>
     </div>
   </section>
+
+  <section id="casos">
+    <div class="section-head">
+      <div class="section-tag"><span class="dwg">DWG-02.6 /</span> Casos en producción</div>
+      <h2 class="section-title">Automatizaciones corriendo hoy, no mockups</h2>
+      <p class="section-desc">Portfolio en público — cada caso, con su problema, su enfoque y su resultado real.</p>
+    </div>
+
+    <div class="case-card">
+      <div>
+        <div class="case-hook">7:58 AM · 24 segundos después</div>
+        <h3>Lord-Productivity</h3>
+        <p class="desc">Un supervisor con 6 personas a cargo necesitaba saber, todos los días, quién trabajó cuánto y en qué — sin abrir planillas. Esta automatización con n8n lee reportes diarios, calcula un score de productividad y arma un tablero Kanban solo, todos los días hábiles a las 18:00.</p>
+
+        <div class="dims" style="margin-bottom:26px;">
+          <div class="dim-row"><span class="k">Tiempo de revisión</span><span class="v">20 min → 24 seg</span></div>
+          <div class="dim-row"><span class="k">Intervención manual</span><span class="v">Ninguna</span></div>
+        </div>
+
+        <div class="case-actions">
+          <a class="cta-ghost" href="https://github.com/sher414/Process/tree/main/N8N-Automatizaciones/Automatizaciones/Lord-Productivity" target="_blank" rel="noopener">Ver caso completo ↗</a>
+          <button type="button" class="cta-ghost" onclick="document.getElementById('demoModal').classList.add('open')">Ver demo en vivo</button>
+        </div>
+      </div>
+
+      <div class="case-visual" onclick="document.getElementById('demoModal').classList.add('open')">
+        <img src="assets/board.png" alt="Tablero Lord-Productivity en Trello">
+        <div class="overlay">▸ Click para ver el tablero en vivo</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="demoModal">
+    <div class="n8n-window">
+      <div class="n8n-titlebar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="n8n-title">trello.com/b/yxlPs8mP/lord-productivity</div>
+        <button class="modal-close" onclick="document.getElementById('demoModal').classList.remove('open')">✕ Cerrar</button>
+      </div>
+      <iframe src="https://trello.com/b/yxlPs8mP.html" loading="lazy" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <section id="sobre-mi">
     <div class="section-head">
